@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flask API Frontend</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Flask API Test Interface</h1>
+
+    <!-- Health Check -->
+    <section>
+      <h2>Server Health</h2>
+      <button onclick="checkHealth()">Check Health</button>
+      <div class="output" id="healthOutput"></div>
+    </section>
+
+    <!-- Echo -->
+    <section>
+      <h2>Echo</h2>
+      <label for="echoMessage">Message:</label>
+      <input type="text" id="echoMessage" />
+      <button onclick="sendEcho()">Send</button>
+      <div class="output" id="echoOutput"></div>
+    </section>
+
+    <!-- Reverse -->
+    <section>
+      <h2>Reverse String</h2>
+      <label for="reverseMessage">Message:</label>
+      <input type="text" id="reverseMessage" />
+      <button onclick="reverseMessage()">Reverse</button>
+      <div class="output" id="reverseOutput"></div>
+    </section>
+
+    <!-- Add -->
+    <section>
+      <h2>Add Two Numbers</h2>
+      <label for="num1">Number 1:</label>
+      <input type="number" id="num1" step="any" />
+      <label for="num2">Number 2:</label>
+      <input type="number" id="num2" step="any" />
+      <button onclick="addNumbers()">Add</button>
+      <div class="output" id="addOutput"></div>
+    </section>
+
+    <!-- Clock -->
+    <section>
+      <h2>Current Time</h2>
+      <button onclick="getClock()">Get Time</button>
+      <div class="output" id="clockOutput"></div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
