@@ -7,17 +7,18 @@ from commands.info import get_time
 # Create the Flask app
 app = Flask(__name__)
 
-# Define a route for the homepage
+# No-endpoint request (default)
 @app.route("/")
 def home():
-    return jsonify(message="Hello, Flask!", status="success")
+    return jsonify(content=""), 200
 
-@app.route("/user/<username>")
-def get_user(username):
+# Returns text the user passes in
+@app.route("/echo/<message>")
+def get_user(message):
     # Example user "object"
-    user_data = {"username": username, "role": "admin", "active": True}
-    return jsonify(user_data)
+    return jsonify(content=message), 200
 
+# Get's the current formatted time
 @app.route("/clock")
 def clock():
     system_time: str = get_time()
