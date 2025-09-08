@@ -48,3 +48,52 @@ button:hover {
   font-family: monospace;
   word-break: break-word;
 }
+
+.output pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.status-code {
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  display: none; /* Hidden by default */
+}
+
+.status-code.visible {
+  display: block;
+}
+
+.status-1xx {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: 1px solid #bbdefb;
+}
+
+.status-2xx {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.status-3xx {
+  background-color: #fff3e0;
+  color: #f57c00;
+  border: 1px solid #ffcc02;
+}
+
+.status-4xx {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.status-5xx {
+  background-color: #fce4ec;
+  color: #ad1457;
+  border: 1px solid #f8bbd9;
+}
