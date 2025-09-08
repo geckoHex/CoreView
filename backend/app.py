@@ -25,6 +25,14 @@ def echo():
         return jsonify(error="No message was provided"), 400
     return jsonify(content=message), 200
 
+# Returns a reversed string
+@app.route("/reverse")
+def reverse_string():
+    message = request.args.get("message")
+    if not message:
+        return jsonify(error="No message was provided"), 400
+    return jsonify(content=message[::-1]), 200
+
 # Get's the current formatted time
 @app.route("/clock")
 def clock():
