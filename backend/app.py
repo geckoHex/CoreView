@@ -24,6 +24,11 @@ def clock():
     system_time: str = get_time()
     return jsonify(content=system_time), 200
 
+# Custom 404 handler
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify(content="404 Not Found: The requested URL was not found on the server."), 404
+
 # Run only if the script is executed directly
 if __name__ == "__main__":
     app.run(debug=True)
