@@ -10,8 +10,14 @@ app = Flask(__name__)
 # No-endpoint request (default)
 @app.route("/")
 def home():
-    return jsonify(content=""), 200
+    return jsonify(content=""), 204
 
+# Server health endpoint
+@app.route("/health")
+def update_server_health():
+    return jsonify(content="Server is online"), 200
+
+# Returns some text
 @app.route("/echo")
 def echo():
     message = request.args.get("message")
