@@ -1,11 +1,16 @@
 # Import server
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 # Import helper functions
 from commands.info import get_time
 
 # Create the Flask app
 app = Flask(__name__)
+CORS(
+    app,
+    origins=["http://localhost:3000"] # Enable frontend site on localhost to make requests
+)
 
 # No-endpoint request (default)
 @app.route("/")
