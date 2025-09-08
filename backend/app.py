@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 # Create the Flask app
 app = Flask(__name__)
@@ -6,11 +6,13 @@ app = Flask(__name__)
 # Define a route for the homepage
 @app.route("/")
 def home():
-    return "Hello, Flask!"
+    return jsonify(message="Hello, Flask!", status="success")
 
-@app.route("/about")
-def about():
-    return "This is the About page!"
+@app.route("/user/<username>")
+def get_user(username):
+    # Example user "object"
+    user_data = {"username": username, "role": "admin", "active": True}
+    return jsonify(user_data)
 
 # Run only if the script is executed directly
 if __name__ == "__main__":
