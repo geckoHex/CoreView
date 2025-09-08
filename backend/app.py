@@ -17,9 +17,7 @@ def echo():
     message = request.args.get("message")
     if not message:
         return jsonify(error="No message was provided"), 400
-    return jsonify({
-        "content": message
-    }), 200
+    return jsonify(content=message), 200
 
 # Get's the current formatted time
 @app.route("/clock")
