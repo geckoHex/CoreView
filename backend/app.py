@@ -33,6 +33,23 @@ def reverse_string():
         return jsonify(error="No message was provided"), 400
     return jsonify(content=message[::-1]), 200
 
+# Adds two numbers
+@app.route("/add")
+def add():
+    try:
+        # Get num1 and num2 from query params
+        num1 = request.args.get("num1", type=float)
+        num2 = request.args.get("num2", type=float)
+
+        # Validation
+        if num1 is None or num2 is None:
+            return jsonify(error="Both 'num1' and 'num2' query params are required"), 400
+
+        result = num1 + num2
+        return jsonify(result=result), 200
+    except ValueError:
+        return jsonify(error="Invalid number format"), 400
+
 # Get's the current formatted time
 @app.route("/clock")
 def clock():
