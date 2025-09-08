@@ -1,3 +1,5 @@
+THIS project is a work-in-progress. More info and a proper readme will be added later. I'm just testing things out for now.
+
 To run: 
 
 Start the backend:
