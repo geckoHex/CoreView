@@ -12,11 +12,14 @@ app = Flask(__name__)
 def home():
     return jsonify(content=""), 200
 
-# Returns text the user passes in
-@app.route("/echo/<message>")
-def get_user(message):
-    # Example user "object"
-    return jsonify(content=message), 200
+@app.route("/echo")
+def echo():
+    message = request.args.get("message")
+    if not message:
+        return jsonify(error="No message was provided"), 400
+    return jsonify({
+        "content": message
+    }), 200
 
 # Get's the current formatted time
 @app.route("/clock")
@@ -27,7 +30,7 @@ def clock():
 # Custom 404 handler
 @app.errorhandler(404)
 def not_found(error):
-    return jsonify(content="404 Not Found: The requested URL was not found on the server."), 404
+    return jsonify(error="404 Not Found: The requested URL was not found on the server."), 404
 
 # Run only if the script is executed directly
 if __name__ == "__main__":
