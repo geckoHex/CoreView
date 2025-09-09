@@ -4,6 +4,8 @@ from flask_cors import CORS
 from functools import wraps
 from datetime import datetime, timedelta
 import secrets
+import dotenv
+import os
 
 # Import helper functions
 from commands.info import get_time
@@ -20,8 +22,9 @@ CORS(
 )
 
 # Simple user store (in production, use a database)
+dotenv.load_dotenv()
 USERS = {
-    "admin": "admin"
+    os.environ.get('ADMIN_USERNAME'): os.environ.get('ADMIN_PASSWORD')
 }
 
 # Authentication decorator
