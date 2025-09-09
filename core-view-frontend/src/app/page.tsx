@@ -3,8 +3,9 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { AuthGuard } from '@/components/AuthGuard';
 
-export default function Home() {
+function HomePage() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
@@ -18,16 +19,20 @@ export default function Home() {
     }
   }, [user, isLoading, router]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading CoreView...</p>
-        </div>
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading CoreView...</p>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-  return null;
+export default function Home() {
+  return (
+    <AuthGuard requireAuth={false}>
+      <HomePage />
+    </AuthGuard>
+  );
 }

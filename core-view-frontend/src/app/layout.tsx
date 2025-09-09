@@ -24,13 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full overflow-hidden bg-gray-50`}
       >
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <div id="__next" className="h-full overflow-y-auto overflow-x-hidden">
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </div>
       </body>
     </html>
   );

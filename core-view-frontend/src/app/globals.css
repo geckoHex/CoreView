@@ -19,36 +19,92 @@
   }
 }
 
+html, body {
+  /* Disable rubber banding/overscroll on iOS */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  /* Prevent pull-to-refresh */
+  overscroll-behavior-y: contain;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  /* Disable text selection highlighting on mobile */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-/* Azure-like scrollbar */
+/* Re-enable text selection for input elements and content areas */
+input, textarea, [contenteditable], .selectable {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Disable iOS bounce effect */
+body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#__next {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Square and direct design - remove rounded corners */
+.card-square {
+  border-radius: 0;
+}
+
+.button-square {
+  border-radius: 0;
+}
+
+.input-square {
+  border-radius: 0;
+}
+
+/* Azure-like scrollbar - more square */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+  background: #f0f0f0;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+  background: #c0c0c0;
+  border-radius: 0;
+  border: 1px solid #d0d0d0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #a0a0a0;
 }
 
-/* Custom focus styles */
+::-webkit-scrollbar-corner {
+  background: #f0f0f0;
+}
+
+/* Custom focus styles - more direct */
 .focus-visible {
   outline: 2px solid #0078d4;
-  outline-offset: 2px;
+  outline-offset: 0;
 }
 
 /* Loading animation */
@@ -63,4 +119,39 @@ body {
 
 .animate-spin {
   animation: spin 1s linear infinite;
+}
+
+/* Square table styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  border: 1px solid #d0d0d0;
+  padding: 8px 12px;
+}
+
+th {
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+/* Direct button styles */
+button {
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Square form elements */
+select, input[type="text"], input[type="email"], input[type="password"], 
+input[type="number"], textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

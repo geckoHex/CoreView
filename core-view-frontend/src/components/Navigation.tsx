@@ -67,10 +67,10 @@ export default function Navigation({ children }: NavigationProps) {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0`}>
-        <div className="flex items-center justify-between h-16 px-6 bg-blue-600">
+      <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 border-r border-gray-300`}>
+        <div className="flex items-center justify-between h-16 px-6 bg-blue-600 border-b border-blue-700">
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
+            <div className="w-8 h-8 bg-white flex items-center justify-center mr-3">
               <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
@@ -86,7 +86,7 @@ export default function Navigation({ children }: NavigationProps) {
         </div>
 
         <nav className="mt-8 px-4">
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {navigationItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -94,10 +94,10 @@ export default function Navigation({ children }: NavigationProps) {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={`flex items-center px-4 py-3 text-sm rounded-lg transition-colors ${
+                    className={`flex items-center px-4 py-3 text-sm transition-colors border-l-3 ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-600'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'bg-blue-50 text-blue-700 border-blue-600 font-medium'
+                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-transparent'
                     }`}
                     onClick={() => setSidebarOpen(false)}
                   >
@@ -122,7 +122,7 @@ export default function Navigation({ children }: NavigationProps) {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-white shadow-sm border-b border-gray-300">
           <div className="flex items-center justify-between h-16 px-6">
             <div className="flex items-center">
               <button
@@ -137,13 +137,13 @@ export default function Navigation({ children }: NavigationProps) {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <div className="flex items-center space-x-2 text-sm text-gray-600 px-3 py-1.5 bg-gray-50 border border-gray-200">
                 <User className="w-4 h-4" />
                 <span>{user?.username}</span>
               </div>
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 border border-gray-200 transition-colors"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Sign out</span>

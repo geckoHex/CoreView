@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { coreAPI } from '@/lib/api';
 import { Activity, MessageSquare, RotateCcw, Calculator, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 
 interface HealthStatus {
   status: 'online' | 'offline' | 'checking';
@@ -87,57 +88,63 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome to CoreView</h1>
-        <p className="text-gray-600">
-          Manage and monitor your backend services from this centralized dashboard.
-        </p>
-      </div>
+      <Card>
+        <CardContent>
+          <CardTitle className="mb-2">Welcome to CoreView</CardTitle>
+          <CardDescription>
+            Manage and monitor your backend services from this centralized dashboard.
+          </CardDescription>
+        </CardContent>
+      </Card>
 
       {/* Status Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Health Status */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">System Health</h3>
-              <div className="flex items-center space-x-2">
-                <div className={`w-3 h-3 rounded-full ${
-                  healthStatus.status === 'online' ? 'bg-green-500' :
-                  healthStatus.status === 'offline' ? 'bg-red-500' : 'bg-yellow-500'
-                }`}></div>
-                <span className={`text-sm font-medium ${
-                  healthStatus.status === 'online' ? 'text-green-700' :
-                  healthStatus.status === 'offline' ? 'text-red-700' : 'text-yellow-700'
-                }`}>
-                  {healthStatus.status === 'online' ? 'Online' :
-                   healthStatus.status === 'offline' ? 'Offline' : 'Checking...'}
-                </span>
+        <Card>
+          <CardContent>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="mb-1">System Health</CardTitle>
+                <div className="flex items-center space-x-2">
+                  <div className={`w-3 h-3 ${
+                    healthStatus.status === 'online' ? 'bg-green-500' :
+                    healthStatus.status === 'offline' ? 'bg-red-500' : 'bg-yellow-500'
+                  }`}></div>
+                  <span className={`text-sm font-medium ${
+                    healthStatus.status === 'online' ? 'text-green-700' :
+                    healthStatus.status === 'offline' ? 'text-red-700' : 'text-yellow-700'
+                  }`}>
+                    {healthStatus.status === 'online' ? 'Online' :
+                     healthStatus.status === 'offline' ? 'Offline' : 'Checking...'}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">
+                  {healthStatus.message || 'Checking system status...'}
+                </p>
               </div>
-              <p className="text-sm text-gray-500 mt-1">
-                {healthStatus.message || 'Checking system status...'}
-              </p>
+              <Activity className={`w-8 h-8 ${
+                healthStatus.status === 'online' ? 'text-green-500' :
+                healthStatus.status === 'offline' ? 'text-red-500' : 'text-yellow-500'
+              }`} />
             </div>
-            <Activity className={`w-8 h-8 ${
-              healthStatus.status === 'online' ? 'text-green-500' :
-              healthStatus.status === 'offline' ? 'text-red-500' : 'text-yellow-500'
-            }`} />
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Current Time */}
-        <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">Server Time</h3>
-              <p className="text-xl font-mono text-blue-600 mb-1">
-                {currentTime || 'Loading...'}
-              </p>
-              <p className="text-sm text-gray-500">Live system time</p>
+        <Card>
+          <CardContent>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="mb-1">Server Time</CardTitle>
+                <p className="text-xl font-mono text-blue-600 mb-1">
+                  {currentTime || 'Loading...'}
+                </p>
+                <p className="text-sm text-gray-500">Live system time</p>
+              </div>
+              <Clock className="w-8 h-8 text-blue-500" />
             </div>
-            <Clock className="w-8 h-8 text-blue-500" />
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Services Grid */}
@@ -150,21 +157,25 @@ export default function DashboardPage() {
               <Link
                 key={service.name}
                 href={service.href}
-                className="bg-white rounded-lg shadow-sm p-6 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200 group"
+                className="block"
               >
-                <div className="flex items-start space-x-4">
-                  <div className={`p-3 rounded-lg ${service.color}`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                      {service.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
+                <Card hover>
+                  <CardContent>
+                    <div className="flex items-start space-x-4">
+                      <div className={`p-3 ${service.color}`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <CardTitle className="group-hover:text-blue-600 transition-colors">
+                          {service.name}
+                        </CardTitle>
+                        <CardDescription className="mt-1">
+                          {service.description}
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </Link>
             );
           })}
@@ -172,23 +183,27 @@ export default function DashboardPage() {
       </div>
 
       {/* System Information */}
-      <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">System Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-700 mb-1">Backend URL</h4>
-            <p className="text-sm text-gray-600 font-mono">http://localhost:5001</p>
+      <Card>
+        <CardHeader>
+          <CardTitle>System Information</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 bg-gray-50 border border-gray-200">
+              <h4 className="text-sm font-medium text-gray-700 mb-1">Backend URL</h4>
+              <p className="text-sm text-gray-600 font-mono">http://localhost:5001</p>
+            </div>
+            <div className="p-4 bg-gray-50 border border-gray-200">
+              <h4 className="text-sm font-medium text-gray-700 mb-1">Session Timeout</h4>
+              <p className="text-sm text-gray-600">5 minutes</p>
+            </div>
+            <div className="p-4 bg-gray-50 border border-gray-200">
+              <h4 className="text-sm font-medium text-gray-700 mb-1">Version</h4>
+              <p className="text-sm text-gray-600">1.0.0</p>
+            </div>
           </div>
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-700 mb-1">Session Timeout</h4>
-            <p className="text-sm text-gray-600">5 minutes</p>
-          </div>
-          <div className="p-4 bg-gray-50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-700 mb-1">Version</h4>
-            <p className="text-sm text-gray-600">1.0.0</p>
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
