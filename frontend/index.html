@@ -8,13 +8,28 @@
   <body>
     <h1>Flask API Test Interface</h1>
 
-    <!-- Health Check -->
-    <section>
-      <h2>Server Health</h2>
-      <button onclick="checkHealth()">Check Health</button>
-      <div class="output" id="healthOutput"></div>
-      <div class="status-code" id="healthStatus"></div>
+    <!-- Authentication Section -->
+    <section id="authSection">
+      <h2>Authentication</h2>
+      <div id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="admin" />
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="admin" />
+        <button onclick="login()">Login</button>
+      </div>
+      <button id="logoutButton" onclick="logout()" style="display: none;">Logout</button>
+      <div class="output" id="authOutput"></div>
     </section>
+
+    <div id="mainSections" style="display: none;">
+      <!-- Health Check -->
+      <section>
+        <h2>Server Health</h2>
+        <button onclick="checkHealth()">Check Health</button>
+        <div class="output" id="healthOutput"></div>
+        <div class="status-code" id="healthStatus"></div>
+      </section>
 
     <!-- Echo -->
     <section>
@@ -55,6 +70,8 @@
       <div class="output" id="clockOutput"></div>
       <div class="status-code" id="clockStatus"></div>
     </section>
+
+    </div> <!-- End mainSections -->
 
     <script src="script.js"></script>
   </body>
