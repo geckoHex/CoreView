@@ -9,6 +9,7 @@ import os
 
 # Import helper functions
 from commands.info import get_time
+from commands.filemanager import file_manager
 
 # Create the Flask app
 app = Flask(__name__)
@@ -126,6 +127,149 @@ def add():
 def clock():
     system_time: str = get_time()
     return jsonify(content=system_time), 200
+
+# File Manager endpoints
+@app.route("/files/list")
+@login_required
+def list_files():
+    path = request.args.get("path", os.path.expanduser("~"))
+    show_hidden = request.args.get("show_hidden", "false").lower() == "true"
+    
+    # Handle empty path or special home path
+    if not path or path == "~":
+        path = os.path.expanduser("~")
+    
+    result = file_manager.list_directory(path, show_hidden)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/search")
+@login_required
+def search_files():
+    path = request.args.get("path", os.path.expanduser("~"))
+    pattern = request.args.get("pattern", "*")
+    show_hidden = request.args.get("show_hidden", "false").lower() == "true"
+    
+    if not pattern:
+        return jsonify(error="Search pattern required"), 400
+    
+    result = file_manager.search_files(path, pattern, show_hidden)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/info")
+@login_required
+def get_file_info():
+    path = request.args.get("path")
+    
+    if not path:
+        return jsonify(error="File path required"), 400
+    
+    result = file_manager.get_file_info(path)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/read")
+@login_required
+def read_file():
+    path = request.args.get("path")
+    
+    if not path:
+        return jsonify(error="File path required"), 400
+    
+    result = file_manager.read_file(path)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/create", methods=["POST"])
+@login_required
+def create_file():
+    data = request.get_json()
+    if not data:
+        return jsonify(error="JSON data required"), 400
+    
+    path = data.get("path")
+    content = data.get("content", "")
+    
+    if not path:
+        return jsonify(error="File path required"), 400
+    
+    result = file_manager.create_file(path, content)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/mkdir", methods=["POST"])
+@login_required
+def create_directory():
+    data = request.get_json()
+    if not data:
+        return jsonify(error="JSON data required"), 400
+    
+    path = data.get("path")
+    
+    if not path:
+        return jsonify(error="Directory path required"), 400
+    
+    result = file_manager.create_directory(path)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/move", methods=["POST"])
+@login_required
+def move_file():
+    data = request.get_json()
+    if not data:
+        return jsonify(error="JSON data required"), 400
+    
+    source = data.get("source")
+    destination = data.get("destination")
+    
+    if not source or not destination:
+        return jsonify(error="Source and destination paths required"), 400
+    
+    result = file_manager.move_item(source, destination)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
+
+@app.route("/files/delete", methods=["DELETE"])
+@login_required
+def delete_file():
+    data = request.get_json()
+    if not data:
+        return jsonify(error="JSON data required"), 400
+    
+    path = data.get("path")
+    
+    if not path:
+        return jsonify(error="File path required"), 400
+    
+    result = file_manager.delete_item(path)
+    
+    if "error" in result:
+        return jsonify(error=result["error"]), 400
+    
+    return jsonify(result), 200
 
 # Custom 404 handler
 @app.errorhandler(404)

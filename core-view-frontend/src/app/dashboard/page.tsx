@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { coreAPI } from '@/lib/api';
-import { Activity, MessageSquare, RotateCcw, Calculator, Clock } from 'lucide-react';
+import { Activity, MessageSquare, RotateCcw, Calculator, Clock, FolderOpen } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 
@@ -75,6 +75,13 @@ export default function DashboardPage() {
       icon: Clock,
       href: '/dashboard/clock',
       color: 'bg-orange-100 text-orange-600',
+    },
+    {
+      name: 'File Manager',
+      description: 'Browse and manage system files',
+      icon: FolderOpen,
+      href: '/dashboard/files',
+      color: 'bg-yellow-100 text-yellow-600',
     },
     {
       name: 'Health Monitor',

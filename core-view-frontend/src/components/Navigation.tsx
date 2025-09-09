@@ -14,7 +14,8 @@ import {
   Menu,
   X,
   LogOut,
-  User
+  User,
+  FolderOpen
 } from 'lucide-react';
 
 const navigationItems = [
@@ -42,6 +43,11 @@ const navigationItems = [
     name: 'System Clock',
     href: '/dashboard/clock',
     icon: Clock,
+  },
+  {
+    name: 'File Manager',
+    href: '/dashboard/files',
+    icon: FolderOpen,
   },
   {
     name: 'Health Monitor',
@@ -154,7 +160,7 @@ export default function Navigation({ children }: NavigationProps) {
 
         {/* Main content area */}
         <main className="flex-1 overflow-y-auto">
-          <div className="p-6">
+          <div className={pathname === '/dashboard/files' ? 'h-full' : 'p-6'}>
             {children}
           </div>
         </main>

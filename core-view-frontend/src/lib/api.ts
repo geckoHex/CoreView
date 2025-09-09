@@ -57,6 +57,53 @@ export const coreAPI = {
   },
 };
 
+// File Manager API functions
+export const fileAPI = {
+  listFiles: async (path: string, showHidden: boolean = false) => {
+    const response = await api.get('/files/list', { 
+      params: { path, show_hidden: showHidden } 
+    });
+    return response.data;
+  },
+
+  searchFiles: async (path: string, pattern: string, showHidden: boolean = false) => {
+    const response = await api.get('/files/search', { 
+      params: { path, pattern, show_hidden: showHidden } 
+    });
+    return response.data;
+  },
+
+  getFileInfo: async (path: string) => {
+    const response = await api.get('/files/info', { params: { path } });
+    return response.data;
+  },
+
+  readFile: async (path: string) => {
+    const response = await api.get('/files/read', { params: { path } });
+    return response.data;
+  },
+
+  createFile: async (path: string, content: string = '') => {
+    const response = await api.post('/files/create', { path, content });
+    return response.data;
+  },
+
+  createDirectory: async (path: string) => {
+    const response = await api.post('/files/mkdir', { path });
+    return response.data;
+  },
+
+  moveItem: async (source: string, destination: string) => {
+    const response = await api.post('/files/move', { source, destination });
+    return response.data;
+  },
+
+  deleteItem: async (path: string) => {
+    const response = await api.delete('/files/delete', { data: { path } });
+    return response.data;
+  },
+};
+
 // Response interceptor for error handling
 api.interceptors.response.use(
   (response) => response,
